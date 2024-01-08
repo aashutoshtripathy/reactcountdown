@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useRef, useEffect } from "react";
 import ResultModal from "./ResultModal";
 
-const TimmerChallenge = ({ tittle, targetTime, remainingTime }) => {
+const TimmerChallenge = ({ tittle, targetTime, timeRemaining }) => {
   const [timeIsRemaining, setTimeIsRemaining] = useState(targetTime * 1000);
   const timer = useRef();
   const dialog = useRef();
@@ -57,9 +57,9 @@ const TimmerChallenge = ({ tittle, targetTime, remainingTime }) => {
         <ResultModal
           ref={dialog}
           targetTime={targetTime}
-          remainingTime={targetTime}
+          remainingTime={timeIsRemaining}
           onReset={handleReset}
-          result="Lost"
+          // result="Lost"
         />
       }
       <section className="challenge">
