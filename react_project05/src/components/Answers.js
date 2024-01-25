@@ -24,7 +24,7 @@ const Answers = ({answers, selectedAnswer, answerState, onSelect}) => {
           if((answerState==='correct'||answerState==='wrong') && isSelected){
             cssClass = answerState;
           }
-          return<li key={answer} className='answer'><button onClick={() => onSelect(answer)} className={cssClass}>{answer}</button></li>
+          return<li key={answer} className='answer'><button onClick={() => onSelect(answer)} disabled={answerState !== ''} className={cssClass}>{answer}</button></li>
         } )}
         </ul>
     </div>
