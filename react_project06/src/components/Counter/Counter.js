@@ -1,4 +1,4 @@
-import { useState, memo, useCallback, useMemo, useEffect } from 'react';
+import { useState, memo, useCallback, useMemo } from 'react';
 
 import IconButton from '../UI/IconButton';
 import MinusIcon from '../UI/Icons/MinusIcon';
