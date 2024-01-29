@@ -1,24 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef, useState, useCallback } from 'react';
+
+import Places from './components/Places';
+import Modal from './components/Modal';
+import DeleteConfirmation from './components/DeleteConfirmation';
+import logoImg from './assets/logo.png';
+import AvailablePlaces from './components/AvailablePlaces';
 
 function App() {
+  const selectedPlace = useRef();
+
+  const [userPlaces, setUserPlaces] = useState([]);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function handleStartRemovePlace(place) {
+    setModalIsOpen(true);
+    selectedPlace.current = place;
+  }
+
+  function handleStopRemovePlace() {
+    setModalIsOpen(false);
+  }
+
+  function handleSelectPlace(selectedPlace) {
+    setUserPlaces((prevPickedPlaces) => {
+      if (!prevPickedPlaces) {
+        prevPickedPlaces = [];
+      }
+      if (prevPickedPlaces.some((place) => place.id === selectedPlace.id)) {
+        return prevPickedPlaces;
+      }
+      return [selectedPlace, ...prevPickedPlaces];
+    });
+  }
+
+  const handleRemovePlace = useCallback(async function handleRemovePlace() {
+    setUserPlaces((prevPickedPlaces) =>
+      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
+    );
+
+    setModalIsOpen(false);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <>
+      <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
+        <DeleteConfirmation
+          onCancel={handleStopRemovePlace}
+          onConfirm={handleRemovePlace}
+        />
+      </Modal>
+
+      <header>
+        <img src={logoImg} alt="Stylized globe" />
+        <h1>PlacePicker</h1>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Create your personal collection of places you would like to visit or
+          you have visited.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
-    </div>
+      <main>
+        <Places
+          title="I'd like to visit ..."
+          fallbackText="Select the places you would like to visit below."
+          places={userPlaces}
+          onSelectPlace={handleStartRemovePlace}
+        />
+
+        <AvailablePlaces onSelectPlace={handleSelectPlace} />
+      </main>
+    </>
   );
 }
 
