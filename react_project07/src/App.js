@@ -5,6 +5,7 @@ import Modal from './components/Modal';
 import DeleteConfirmation from './components/DeleteConfirmation';
 import logoImg from './assets/logo.png';
 import AvailablePlaces from './components/AvailablePlaces';
+import { updateUserPlaces } from './http';
 
 function App() {
   const selectedPlace = useRef();
@@ -22,7 +23,7 @@ function App() {
     setModalIsOpen(false);
   }
 
-  function handleSelectPlace(selectedPlace) {
+  async function handleSelectPlace(selectedPlace) {
     setUserPlaces((prevPickedPlaces) => {
       if (!prevPickedPlaces) {
         prevPickedPlaces = [];
@@ -32,6 +33,14 @@ function App() {
       }
       return [selectedPlace, ...prevPickedPlaces];
     });
+
+
+    try {
+      await updateUserPlaces([selectedPlace,...userPlaces]);
+    } catch (error) {
+      setUserPlaces(userPlaces);
+    }
+
   }
 
   const handleRemovePlace = useCallback(async function handleRemovePlace() {
