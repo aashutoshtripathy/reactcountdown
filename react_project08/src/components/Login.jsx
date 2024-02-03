@@ -39,7 +39,7 @@ export default function Login() {
 
       <p className="form-actions">
         <button className="button button-flat" type="reset">Reset</button>
-        <button className="button">Login</button>
+        <button className="button" type="submit">Login</button>
       </p>
     </form>
   );
