@@ -1,8 +1,13 @@
 import React from 'react'
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const Create = () => {
+
+  const navigate = useNavigate();
+
+
   const [inpVal, setInpVal] = useState({
     email: '',
     password: ''
@@ -24,11 +29,16 @@ const Create = () => {
           email: '',
           password: ''
         })
+        setEdit({
+          email:false
+        })
 
 
-        axios.post('http://localhost:8000/submit-form',inpVal)
+
+        axios.post('http://localhost:8000/create',inpVal)
         .then(response => {
           console.log(response.data);
+          navigate('/');
         })
         .catch(error => { 
           console.log('Error in submitting the form', error); 
