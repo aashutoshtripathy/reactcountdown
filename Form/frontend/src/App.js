@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Create from './components/Create';
 import Signup from './components/Signup';
 import Update from './components/Update';
+import Optval from './components/Optval';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/create' element={<Create/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/update/:id' element={<Update/>}/>
+        <Route path='/optval' element={<Optval/>}/>
       </Routes>
     </BrowserRouter>
     </>
