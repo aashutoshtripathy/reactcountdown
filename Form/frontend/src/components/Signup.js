@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
 
@@ -6,8 +7,8 @@ const Signup = () => {
         fname: '',
         lname: '',
         email: '',
-        password: '',
-        cpassword: ''
+        pass: '',
+        cpass: ''
     })
 
 
@@ -23,11 +24,21 @@ const Signup = () => {
         e.preventDefault();
 
         setInpVal({
-        fname: '',
-        lname: '',
-        email: '',
-        password: '',
-        cpassword: ''
+            fname: '',
+            lname: '',
+            email: '',
+            pass: '',
+            cpass: '' 
+        })
+
+
+
+        axios.post('http://localhost:8000/signup',inpVal)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log('Error in submitting the form ',error)
         })
     }
   return (
@@ -40,9 +51,9 @@ const Signup = () => {
             <label htmlFor='email'>E-Mail</label>
             <input type='email' name='email' id='email' onChange={(e) => handleChange('email',e.target.value)} value={inpVal.email}/>
             <label htmlFor='pass'>Password:</label>
-            <input type='password' name='pass' id='pass' onChange={(e) => handleChange('password',e.target.value)} value={inpVal.password}/>
+            <input type='password' name='pass' id='pass' onChange={(e) => handleChange('pass',e.target.value)} value={inpVal.pass}/>
             <label htmlFor='cpass'>Re-Password:</label>
-            <input type='text' name='cpass' id='cpass' onChange={(e) => handleChange('cpassword',e.target.value)} value={inpVal.cpassword}/>    
+            <input type='text' name='cpass' id='cpass' onChange={(e) => handleChange('cpass',e.target.value)} value={inpVal.cpass}/>    
             <input type='submit' value={`SignUp`} />
         </form>
     </div>
