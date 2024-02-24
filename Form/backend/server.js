@@ -183,6 +183,23 @@ app.delete("/api/data/:id",(req,res) => {
 
 
 
+app.get("/api/data/:id",(req,res) => {
+  const id = req.params.id;
+
+
+  const selectQuery = "SELECT * from formData WHERE id = ?"
+  db.query(selectQuery,[id],(err,result) => {
+    if (err) {
+      console.error(`Error with fetching this id ${id}`,err);
+      res.status(500).json({message:"Error with dealing this ID "})
+    } else {
+      res.json({message:`Data with this ID ${id} has been fetched successfully`})
+    }
+  })
+})
+
+
+
 // app.put("/api/data/:id",(req ,res) => {
 //   const id = req.params.id;
 //   const {email,password} = req.body;
