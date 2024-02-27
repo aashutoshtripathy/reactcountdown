@@ -13,8 +13,29 @@ const Form = () => {
         cpass: ''
     })
 
+    const [error, setError] = useState({
+        pass: '',
+        cpass: ''
+    })
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+
+        if(inpVal.pass !== inpVal.cpass) {
+            setError((prevError) => ({
+                ...prevError,
+                cpass: 'Password dont match'
+            }))
+            return;
+        } else {
+            setError((prevError) => ({
+                ...prevError,
+                cpass: ''
+            }))
+        }
+
+        
 
 
         setInpVal({
@@ -58,20 +79,21 @@ const Form = () => {
         <div>
         <label>Gender:</label><br/>
         <label htmlFor="Male">Male
-        <input type="radio" id="Male" name="gender" value="Male"/>
+        <input type="radio" id="Male" name="gender" checked={inpVal.gender === 'male'} value="male" onChange={() => handleChange('gender','male')}/>
         </label>
         <label htmlFor="Female">Female
-        <input type="radio" id="Female" name="gender" value="Female"/>
+        <input type="radio" id="Female" name="gender" checked={inpVal.gender === 'female'} value="female" onChange={() => handleChange('gender','female')}/>
         </label>
         <label htmlFor="Other">Other
-        <input type="radio" id="Other" name="gender" value="Other"/>
+        <input type="radio" id="Other" name="gender" checked={inpVal.gender === 'other'} value="other" onChange={() => handleChange('gender','other')}/>
         </label>
         </div>
         <label>Password:
-            <input type='Password' value={inpVal.pass} placeholder='Password'/>
+            <input type='Password' value={inpVal.pass} onChange={(e) => handleChange('pass',e.target.value)} placeholder='Password'/> 
         </label>
         <label>Re-Password:
-            <input type='text' value={inpVal.cpass} placeholder='Password'/>
+            <input type='text' value={inpVal.cpass} onChange={(e) => handleChange('cpass',e.target.value)} placeholder='Password'/>
+            {error.cpass && <p style={{color:'red'}}>{error.cpass}</p>}
         </label>
         <input style={{width:'10%',backgroundColor:'blue',color:'white'}}  type='submit'/>
         </form>
