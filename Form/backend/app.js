@@ -83,6 +83,22 @@ db.query("CREATE DATABASE IF NOT EXISTS sform", (err) => {
 })
 
 
+app.delete('/api/data/:id',(req,res) => {
+    const id = req.params.id;
+    const deleteQuery = "DELETE FROM signup_form WHERE id = ?"
+    db.query(deleteQuery,[id],(err,result) => {
+        if(err) {
+            console.error("unable to delete the data",err);
+            res.status(500).send("Internal server error in deleting the data");
+        }else{
+            console.log("Successfully deleted");
+            res.status(200).json({message: `delete the data with ID : ${id}`});
+            
+        }
+    })
+})
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port number ${port}`)
