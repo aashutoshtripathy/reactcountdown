@@ -99,6 +99,22 @@ app.delete('/api/data/:id',(req,res) => {
 })
 
 
+app.put('/api/update/:id',(req,res) => {
+    const id = req.params.id;
+    const {fname ,lname ,email ,mob ,gender ,pass} = req.body;
+    const updateQuery = "UPDATE signup_form SET fname = ?,lname = ?,email = ?,mob = ?,gender = ?,pass = ? WHERE id = ?";
+    db.query((updateQuery),[fname,lname,email,mob,gender,pass,id],(err,result) => {
+        if(err){
+            console.error('there is an error in updating the table');
+            res.status(500).send('Internal server error');
+        }else{
+            console.log("successfully updated");
+            res.status(200).json({message:"successfully Updated", data: {fname ,lname ,email ,mob ,gender ,pass}})
+        }
+    })
+})
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port number ${port}`)
