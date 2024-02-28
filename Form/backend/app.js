@@ -107,7 +107,7 @@ app.put('/api/update/:id',(req,res) => {
     const updateQuery = "UPDATE signup_form SET fname = ?,lname = ?,email = ?,mob = ?,gender = ?,pass = ? WHERE id = ?";
     db.query((updateQuery),[fname,lname,email,mob,gender,pass,id],(err,result) => {
         if(err){
-            console.error('there is an error in updating the table');
+            console.error('there is an error in updating the table',err);
             res.status(500).send('Internal server error');
         }else{
             console.log("successfully updated");
