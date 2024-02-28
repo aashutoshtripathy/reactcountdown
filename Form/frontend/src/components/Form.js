@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
     const [inpVal, setInpVal] = useState({
@@ -19,7 +20,7 @@ const Form = () => {
         cpass: ''
     })
 
-
+    const navigate = useNavigate();
     
 
 
@@ -59,6 +60,7 @@ const Form = () => {
         axios.post("http://localhost:8001/signup" ,inpVal)
     .then(response => {
         console.log(response.data)
+        navigate('/formdata')
     })
     .catch(error => {
         console.log('Error in submitting the form',error)
