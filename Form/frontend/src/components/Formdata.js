@@ -36,14 +36,21 @@ const Formdata = () => {
     }
 
 
-    const handleUpdate = async (id) => {
-        try {
-            navigate('/updateform')
-            await axios.put(`http://localhost:8001/api/update/${id}`);
-            console.log('Updated successfully')
-        } catch (error) {
-            console.error('Error in updating the data')
-        }
+    // const handleUpdate = async (id) => {
+    //     try {
+    //         await axios.put(`http://localhost:8001/api/update/${id}`);
+    //         console.log('Updated successfully');
+    //         fetchData();  // Fetch data after update
+    //         navigate('/updateform');
+    //     } catch (error) {
+    //         console.error('Error in updating the data', error);
+    //     }
+    // }
+    
+
+
+    const handleUpdate = (id) => {
+        navigate(`/api/fetch/${id}`)
     }
     
 
