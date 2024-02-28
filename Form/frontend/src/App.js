@@ -22,7 +22,7 @@ function App() {
         <Route path='/optval' element={<Optval/>}/>
         <Route path='/form' element={<Form/>}/>
         <Route path='/formdata' element={<Formdata/>}/>
-        <Route path='/updateform' element={<Formupdate/>}/>
+        <Route path='/api/fetch/:id' element={<Formupdate/>}/>
       </Routes>
     </BrowserRouter>
     </>
