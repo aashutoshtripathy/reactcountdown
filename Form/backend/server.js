@@ -155,7 +155,7 @@ app.post("/signup", (req, res) => {
 
 
 app.get("/api/data", (req, res) => {
-  const query = "SELECT * FROM formData"; // specify your table name
+  const query = "SELECT * FROM formData"; 
   db.query(query, (err, results) => {
     if (err) {
       console.error("Error fetching data from MySQL:", err);
