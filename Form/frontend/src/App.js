@@ -6,6 +6,8 @@ import Signup from './components/Signup';
 import Update from './components/Update';
 import Optval from './components/Optval';
 import Form from './components/Form';
+import Formdata from './components/Formdata';
+import Formupdate from './components/Formupdate';
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path='/update/:id' element={<Update/>}/>
         <Route path='/optval' element={<Optval/>}/>
         <Route path='/form' element={<Form/>}/>
+        <Route path='/formdata' element={<Formdata/>}/>
+        <Route path='/updateform' element={<Formupdate/>}/>
       </Routes>
     </BrowserRouter>
     </>
