@@ -10,7 +10,9 @@ const port = 8001;
 
 app.use(morgan("dev"));
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 const db = mysql.createConnection({
