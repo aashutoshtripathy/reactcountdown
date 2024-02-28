@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 const Form = () => {
     const [inpVal, setInpVal] = useState({
@@ -18,8 +19,26 @@ const Form = () => {
         cpass: ''
     })
 
+
+    
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+
+        if(inpVal.mob.length < 10){
+            setError((prevError) => ({
+                ...prevError,
+                mob: 'please enter 10 digit mobile number'
+            }))
+            return;
+        }else{
+            setError((prevError) => ({
+                ...prevError,
+                mob: ''
+            }))
+        }
 
 
         if(inpVal.pass !== inpVal.cpass) {
@@ -34,6 +53,16 @@ const Form = () => {
                 cpass: ''
             }))
         }
+
+
+
+        axios.post("http://localhost:8001/signup" ,inpVal)
+    .then(response => {
+        console.log(response.data)
+    })
+    .catch(error => {
+        console.log('Error in submitting the form',error)
+    })
 
         
 
@@ -74,7 +103,8 @@ const Form = () => {
             <input type='email' value={inpVal.email} onChange={(e) => handleChange('email',e.target.value)} placeholder='Email'/>
         </label>
         <label>Mobile No.:
-            <input type='text' value={inpVal.mob} onChange={(e) => handleChange('mob',e.target.value)} placeholder='Mobile'/>
+            <input type='number' value={inpVal.mob} onChange={(e) => handleChange('mob',e.target.value)} placeholder='Mobile'/>
+            {error.mob && <p style={{color:'red'}}>{error.mob}</p>}
         </label>
         <div>
         <label>Gender:</label><br/>
@@ -95,7 +125,7 @@ const Form = () => {
             <input type='text' value={inpVal.cpass} onChange={(e) => handleChange('cpass',e.target.value)} placeholder='Password'/>
             {error.cpass && <p style={{color:'red'}}>{error.cpass}</p>}
         </label>
-        <input style={{width:'10%',backgroundColor:'blue',color:'white'}}  type='submit'/>
+        <input style={{width:'10%',backgroundColor:'blue',color:'white'}} value={`SignUp`} type='submit'/>
         </form>
     </div>
   )
