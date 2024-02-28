@@ -101,6 +101,21 @@ app.delete('/api/data/:id',(req,res) => {
 })
 
 
+app.get('/api/fetch/:id',(req,res) => {
+    const id = req.params.id;
+    const fetchQuery = "SELECT * FROM signup_form WHERE id = ?";
+    db.query(fetchQuery,[id],(err,result) => {
+        if(err){
+            console.error('Unable to fetch the data',err);
+            res.status(500).send("Internal Server Error");
+        }else{
+            console.log('Fetched successfully');
+            res.status(200).json(result)
+        }
+    })
+})
+
+
 app.put('/api/update/:id',(req,res) => {
     const id = req.params.id;
     const {fname ,lname ,email ,mob ,gender ,pass} = req.body;
