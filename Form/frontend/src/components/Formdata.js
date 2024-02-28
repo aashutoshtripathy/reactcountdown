@@ -38,8 +38,8 @@ const Formdata = () => {
 
     const handleUpdate = async (id) => {
         try {
-            // await axios.put(`http://localhost:8001/api/update/${id}`);
             navigate('/updateform')
+            await axios.put(`http://localhost:8001/api/update/${id}`);
             console.log('Updated successfully')
         } catch (error) {
             console.error('Error in updating the data')
