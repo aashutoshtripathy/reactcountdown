@@ -239,6 +239,23 @@ app.put("/api/data/:id", (req, res) => {
 });
 
 
+
+
+app.post("/signup",(req,res) => {
+  const {fname,lname,email} = req.body;
+  db.query({fname,lname,email},(err,result) => {
+    
+  })
+  if(error){
+    console.error('error encountered');
+    res.status(500).send("Internal error");
+  }else{
+    console.log('success...');
+    res.status(200).json({message: "success", data: {data}});
+  }
+})
+
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
