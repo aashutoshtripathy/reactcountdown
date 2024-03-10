@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const Create = () => {
 
@@ -43,6 +44,24 @@ const Create = () => {
         .catch(error => { 
           console.log('Error in submitting the form', error); 
         })
+
+
+
+        const fetchData = async(id) => {
+          const response = await axios.get("http://localhost:5000/signupdata",inpval)
+          .then(response => {
+            console.log("fetched successfully",response.data);
+          })
+          .catch(error => {
+            console.error("not fetched the data"),error;
+          })
+        }
+
+
+        useEffect((id) => {
+          fetchData();
+        }, [id])
+        
     }
 
     function handleChange(identifier,value){
